@@ -18,7 +18,7 @@ titulo=('Quantum Calculator'.center(31))
 
 selec_v1_txt='Digite o primeiro valor: '
 selec_op_txt='Digite a operação que deseja realizar: '
-selec_v2_txt='Digite o primeiro valor: '
+selec_v2_txt='Digite o segundo valor: '
 
 
 # -- -- --
@@ -39,19 +39,26 @@ def operacoes():
 def escolhas():
     global valor1,valor_atual,inp_v1
     if inp_v1==False:
-        #global valor1,valor_atual
-        selec_v1=int(input(selec_v1_txt))  # resolver BO e verificar se é int ou str
-        if selec_v1=='ac' and selec_v1=='AC':
-            reset()
-        elif selec_v1!=int:
-            print('op inval')
-            input('reiniciando...')
-            reset()
-        else:
+        selec_v1=input(selec_v1_txt)
+        if (selec_v1.isdigit())==True:
             valor1=selec_v1
             valor_atual=selec_v1
             inp_v1=True
             main()
+        else: 
+            match selec_v1:
+                case 'ac':
+                    reset()
+                case 'AC':
+                    reset()
+                case '+':
+                    valor_atual=selec_v1
+                case '-':
+                    valor_atual=selec_v1
+                case _:
+                    print('op inval')
+                    input('reiniciando...')
+                    reset()
     # -- -- --
     selec_op=str(input(selec_op_txt))
     selec_v2=int(input(selec_v2_txt))
