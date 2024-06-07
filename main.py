@@ -1,5 +1,13 @@
 import os
 # -- -- --
+# TASKS:
+
+# adicionar histórico
+# ajustar if type
+## pensar em como colocar numero com virgula
+
+
+# -- -- --
 # vars
 res=[0,1,2,3,4,5,6,7,8,9]
 valor1=0
@@ -48,12 +56,15 @@ def prim_valor():
     global inp_v1,valor1,valor_atual,menos_ant
     if inp_v1==False:
         selec_v1=input(selec_v1_txt)
+        print(type(selec_v1))
+        #if type(selec_v1)==int or type(selec_v1)==float:
+            #print(452)
         if (selec_v1.isdigit())==True:
             if menos_ant==True:
                 valor_atual=f'{valor_atual}'+f'{selec_v1}'
-                valor1=int(valor_atual)
+                valor1=float(valor_atual)
             else:
-                valor1=int(selec_v1)
+                valor1=float(selec_v1)
                 valor_atual=selec_v1
             inp_v1=True
             reset(1)
@@ -116,30 +127,30 @@ def selecao_operacao():
 def secun_valor():
     global valor_atual,inp_v2,cont,somando,subtraindo,multiplicando,dividindo,potenciacao
     if inp_v2==False:
-        selec_v2=int(input(selec_v2_txt))
+        selec_v2=input(selec_v2_txt)
         valor2=int(selec_v2)
         inp_v2=True
         if somando==True:
             soma=valor1+valor2
-            som=int(soma)
+            som=float(soma)
             res[cont]=som
 
         if subtraindo==True:
-            dim=int(valor1+valor2)
+            dim=float(valor1+valor2)
             res[cont]=dim
 
         if multiplicando==True:
-            mult=int(valor1*valor2)
+            mult=float(valor1*valor2)
             res[cont]=mult
 
         if dividindo==True:
-            div=int(valor1/valor2)
+            div=float(valor1/valor2)
             res[cont]=div
 
         if potenciacao==True:
-            cont_poten=1
+            cont_poten=0
             pot=1
-            while cont_poten<=selec_v2:
+            while cont_poten<selec_v2:
                 pot=pot*valor1
                 cont_poten+=1
             res[cont]=pot
@@ -166,9 +177,9 @@ def escolhas():
     # -- -- --
     secun_valor()
     # -- -- --
-    print(cont)
-    print(res)
-    print(res[cont])
+    #print(cont)
+    #print(res)
+    #print(res[cont])
     input(final)
     reset('erro')
 
@@ -197,18 +208,7 @@ def main():
     escolhas()
     
 
-
 # -- -- --
 main()
-
-def pot():
-    poten=0
-    selec_v2=int(input(selec_v2_txt))
-    while poten<selec_v2:
-        print(1)
-        poten+=1
-    #print(6*((3-1)*6))
-    #print(2*2*2*2*2*2)
-# 2 4 8 16 32 64
-# 6 36 216 1296
-#pot()
+#cont=0.3
+#print(type(cont))
