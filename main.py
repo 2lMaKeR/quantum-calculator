@@ -44,17 +44,8 @@ def visor():
 
 
 # -- -- --
-def operacoes():
-    print('|  +  |'.ljust(espaco),'|  -  |'.ljust(espaco),'|  x  |'.ljust(espaco),'|  %  |'.ljust(espaco))
-    print('| sin |'.ljust(espaco),'| cos |'.ljust(espaco),'| tan |'.ljust(espaco),'|  *  |'.ljust(espaco))
-    print(' '.ljust(3*espaco+1),'|  =  |'.ljust(espaco),'|  AC |')
-    print(divisorias)
-
-
-# -- -- --
-def escolhas():
-    global valor1,valor_atual,inp_v1,menos_ant,inp_op,inp_v2,cont
-    global somando,subtraindo,multiplicando,dividindo,potenciacao
+def prim_valor():
+    global inp_v1,valor1,valor_atual,menos_ant
     if inp_v1==False:
         selec_v1=input(selec_v1_txt)
         if (selec_v1.isdigit())==True:
@@ -62,7 +53,7 @@ def escolhas():
                 valor_atual=f'{valor_atual}'+f'{selec_v1}'
                 valor1=int(valor_atual)
             else:
-                valor1=selec_v1
+                valor1=int(selec_v1)
                 valor_atual=selec_v1
             inp_v1=True
             reset(1)
@@ -83,7 +74,11 @@ def escolhas():
                     print('op inval')
                     input('reiniciando...')
                     reset('erro')
-    # -- -- --
+
+
+# -- -- --
+def selecao_operacao():
+    global inp_op,somando,subtraindo,multiplicando,dividindo,potenciacao
     if inp_op==False:
         selec_op=str(input(selec_op_txt))
         match selec_op:
@@ -115,13 +110,18 @@ def escolhas():
                 print('op inval')
                 input('reiniciando...')
                 reset('erro')
-    # -- -- --
+
+
+# -- -- --
+def secun_valor():
+    global valor_atual,inp_v2,cont,somando,subtraindo,multiplicando,dividindo,potenciacao
     if inp_v2==False:
         selec_v2=int(input(selec_v2_txt))
-        valor2=selec_v2
+        valor2=int(selec_v2)
         inp_v2=True
         if somando==True:
-            som=int(valor1+valor2)
+            soma=valor1+valor2
+            som=int(soma)
             res[cont]=som
 
         if subtraindo==True:
@@ -137,9 +137,10 @@ def escolhas():
             res[cont]=div
 
         if potenciacao==True:
-            cont_poten=0
-            while cont_poten<selec_v2:
-                pot=valor1*valor1
+            cont_poten=1
+            pot=1
+            while cont_poten<=selec_v2:
+                pot=pot*valor1
                 cont_poten+=1
             res[cont]=pot
 
@@ -147,7 +148,27 @@ def escolhas():
         valor_atual=res[cont]
         cont+=1
         reset(1)
+
+
+# -- -- --
+def operacoes():
+    print('|  +  |'.ljust(espaco),'|  -  |'.ljust(espaco),'|  x  |'.ljust(espaco),'|  %  |'.ljust(espaco))
+    print('| sin |'.ljust(espaco),'| cos |'.ljust(espaco),'| tan |'.ljust(espaco),'|  *  |'.ljust(espaco))
+    print(' '.ljust(3*espaco+1),'|  =  |'.ljust(espaco),'|  AC |')
+    print(divisorias)
+
+
+# -- -- --
+def escolhas():
+    prim_valor()
     # -- -- --
+    selecao_operacao()
+    # -- -- --
+    secun_valor()
+    # -- -- --
+    print(cont)
+    print(res)
+    print(res[cont])
     input(final)
     reset('erro')
 
@@ -159,9 +180,11 @@ def cleaner():
 
 # -- -- --
 def reset(chave): # adicionar todas os outro bools
-    global inp_v1,valor_atual
+    global inp_v1,inp_v2,inp_op,valor_atual
     if chave=='erro':
         inp_v1=False
+        inp_v2=False
+        inp_op=False
         valor_atual=0
     main()
 
@@ -172,10 +195,11 @@ def main():
     visor()
     operacoes()
     escolhas()
+    
 
 
 # -- -- --
-#main()
+main()
 
 def pot():
     poten=0
@@ -187,4 +211,4 @@ def pot():
     #print(2*2*2*2*2*2)
 # 2 4 8 16 32 64
 # 6 36 216 1296
-pot()
+#pot()
