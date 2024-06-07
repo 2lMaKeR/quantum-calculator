@@ -14,6 +14,15 @@ inp_v1=False
 inp_op=False
 inp_v2=False
 
+somando=False
+subtraindo=False
+multiplicando=False
+dividindo=False
+potenciacao=False
+
+cont=0
+
+
 # -- -- --
 # vars de texto
 divisorias='-'*31
@@ -41,14 +50,17 @@ def operacoes():
     print(' '.ljust(3*espaco+1),'|  =  |'.ljust(espaco),'|  AC |')
     print(divisorias)
 
+
+# -- -- --
 def escolhas():
-    global valor1,valor_atual,inp_v1,menos_ant,inp_op,inp_v2
+    global valor1,valor_atual,inp_v1,menos_ant,inp_op,inp_v2,cont
+    global somando,subtraindo,multiplicando,dividindo,potenciacao
     if inp_v1==False:
         selec_v1=input(selec_v1_txt)
         if (selec_v1.isdigit())==True:
             if menos_ant==True:
                 valor_atual=f'{valor_atual}'+f'{selec_v1}'
-                valor1=int(selec_v1)
+                valor1=int(valor_atual)
             else:
                 valor1=selec_v1
                 valor_atual=selec_v1
@@ -81,23 +93,61 @@ def escolhas():
                 reset('erro')
             case '+':
                 inp_op=True
+                somando=True
                 reset(1)
             case '-':
                 inp_op=True
+                subtraindo=True
+                reset(1)
+            case 'x':
+                inp_op=True
+                multiplicando=True
+                reset(1)
+            case '%':
+                inp_op=True
+                dividindo=True
+                reset(1)
+            case '*':
+                inp_op=True
+                potenciacao=True
                 reset(1)
             case _:
                 print('op inval')
                 input('reiniciando...')
                 reset('erro')
-     # -- -- --
-    if inp_v2==False:         
+    # -- -- --
+    if inp_v2==False:
         selec_v2=int(input(selec_v2_txt))
-        valor2=selec_v2                              # continuar configurando o final da função e a seleção de operação
-        res[1]=int(valor1+valor2)
-        valor_atual=res[1]
+        valor2=selec_v2
         inp_v2=True
-        reset(1)
+        if somando==True:
+            som=int(valor1+valor2)
+            res[cont]=som
 
+        if subtraindo==True:
+            dim=int(valor1+valor2)
+            res[cont]=dim
+
+        if multiplicando==True:
+            mult=int(valor1*valor2)
+            res[cont]=mult
+
+        if dividindo==True:
+            div=int(valor1/valor2)
+            res[cont]=div
+
+        if potenciacao==True:
+            cont_poten=0
+            while cont_poten<selec_v2:
+                pot=valor1*valor1
+                cont_poten+=1
+            res[cont]=pot
+
+        # -- -- --
+        valor_atual=res[cont]
+        cont+=1
+        reset(1)
+    # -- -- --
     input(final)
     reset('erro')
 
@@ -125,4 +175,16 @@ def main():
 
 
 # -- -- --
-main()
+#main()
+
+def pot():
+    poten=0
+    selec_v2=int(input(selec_v2_txt))
+    while poten<selec_v2:
+        print(1)
+        poten+=1
+    #print(6*((3-1)*6))
+    #print(2*2*2*2*2*2)
+# 2 4 8 16 32 64
+# 6 36 216 1296
+pot()
