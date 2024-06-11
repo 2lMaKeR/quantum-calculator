@@ -21,6 +21,7 @@ menos_ant=False
 inp_v1=False
 inp_op=False
 inp_v2=False
+hst=False
 
 somando=False
 subtraindo=False
@@ -53,44 +54,50 @@ def visor():
 
 # -- -- --
 def prim_valor():
-    global inp_v1,valor1,valor_atual,menos_ant
-    if inp_v1==False:
-        selec_v1=input(selec_v1_txt)
-        print(type(selec_v1))
-        #if type(selec_v1)==int or type(selec_v1)==float:
-            #print(452)
-        if (selec_v1.isdigit())==True:
-            if menos_ant==True:
-                valor_atual=f'{valor_atual}'+f'{selec_v1}'
-                valor1=float(valor_atual)
-            else:
-                valor1=float(selec_v1)
-                valor_atual=selec_v1
-            inp_v1=True
-            reset(1)
-        else: 
-            match selec_v1:
-                case 'ac':
-                    reset('erro')
-                case 'AC':
-                    reset('erro')
-                case 'hst':
-                    valor_atual=res
-                    reset(1)
-                case 'HST':
-                    valor_atual=res
-                    reset(1)
-                case '+':
+    global inp_v1,valor1,valor_atual,menos_ant,hst
+    if hst==True:
+        input('reiniciando...')
+        reset('erro')
+    else:
+        if inp_v1==False:
+            selec_v1=input(selec_v1_txt)
+            print(type(selec_v1))
+            #if type(selec_v1)==int or type(selec_v1)==float:
+                #print(452)
+            if (selec_v1.isdigit())==True:
+                if menos_ant==True:
+                    valor_atual=f'{valor_atual}'+f'{selec_v1}'
+                    valor1=float(valor_atual)
+                else:
+                    valor1=float(selec_v1)
                     valor_atual=selec_v1
-                    reset(1)
-                case '-':
-                    valor_atual=selec_v1
-                    menos_ant=True
-                    reset(1)
-                case _:
-                    print('op inval')
-                    input('reiniciando...')
-                    reset('erro')
+                inp_v1=True
+                reset(1)
+            else: 
+                match selec_v1:
+                    case 'ac':
+                        reset('erro')
+                    case 'AC':
+                        reset('erro')
+                    case 'hst':
+                        valor_atual=res
+                        hst=True
+                        reset(1)
+                    case 'HST':
+                        valor_atual=res
+                        hst=True
+                        reset(1)
+                    case '+':
+                        valor_atual=selec_v1
+                        reset(1)
+                    case '-':
+                        valor_atual=selec_v1
+                        menos_ant=True
+                        reset(1)
+                    case _:
+                        print('op inval')
+                        input('reiniciando...')
+                        reset('erro')
 
 
 # -- -- --
@@ -142,15 +149,18 @@ def secun_valor():
             res[cont]=som
 
         if subtraindo==True:
-            dim=float(valor1+valor2)
+            dimi=valor1-valor2
+            dim=float(dimi)
             res[cont]=dim
 
         if multiplicando==True:
-            mult=float(valor1*valor2)
-            res[cont]=mult
+            mult=valor1*valor2
+            mut=float(mult)
+            res[cont]=mut
 
         if dividindo==True:
-            div=float(valor1/valor2)
+            divi=valor1/valor2
+            div=float(divi)
             res[cont]=div
 
         if potenciacao==True:
@@ -197,11 +207,12 @@ def cleaner():
 
 # -- -- --
 def reset(chave): # adicionar todas os outro bools
-    global inp_v1,inp_v2,inp_op,valor_atual
+    global inp_v1,inp_v2,inp_op,valor_atual,hst
     if chave=='erro':
         inp_v1=False
         inp_v2=False
         inp_op=False
+        hst=False
         valor_atual=0
     main()
 
