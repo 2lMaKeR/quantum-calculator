@@ -74,6 +74,12 @@ def prim_valor():
                     reset('erro')
                 case 'AC':
                     reset('erro')
+                case 'hst':
+                    valor_atual=res
+                    reset(1)
+                case 'HST':
+                    valor_atual=res
+                    reset(1)
                 case '+':
                     valor_atual=selec_v1
                     reset(1)
@@ -165,7 +171,7 @@ def secun_valor():
 def operacoes():
     print('|  +  |'.ljust(espaco),'|  -  |'.ljust(espaco),'|  x  |'.ljust(espaco),'|  %  |'.ljust(espaco))
     print('| sin |'.ljust(espaco),'| cos |'.ljust(espaco),'| tan |'.ljust(espaco),'|  *  |'.ljust(espaco))
-    print(' '.ljust(3*espaco+1),'|  =  |'.ljust(espaco),'|  AC |')
+    print(' '.ljust(3*espaco+1),'| HST |'.ljust(espaco),'|  AC |')
     print(divisorias)
 
 
@@ -210,5 +216,3 @@ def main():
 
 # -- -- --
 main()
-#cont=0.3
-#print(type(cont))
